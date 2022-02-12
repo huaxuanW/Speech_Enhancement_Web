@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Enhancement</title>
+
+
+<style>
+    body{
+        text-align: center;
+        /* background-color: #96719b; */
+        background-image: url('static/home1.jpg');
+    }
+    .custom_btn{
+        background-color: rgb(203, 203, 247);
+        border: none;   
+        padding: 8px;
+        border-radius: 3px;
+        margin-top: 10px;
+    }
+    
+    
+</style>
+
+<script>
+    function mixer(name){
+        window.location.href='/mix_' + name
+        audio.src = "static/temp/{{mixed_speech}}";
+        audio.play()
+    }
+
+    function predict(){
+        window.location.href='/enhanced'
+    }
+
+    function reset(){
+        window.location.href='/home'
+    }
+</script>
+
+
+<body>
+    <div id="SpeechContainer">
+        <h2 style="color: rgb(255, 255, 255)">Speech Enhancement</h2>
+
+        <h4 style="color: rgb(255, 255, 255)">Step1. Upload any clean speech file:</h4>
+        <form action="upload" method="post" enctype="multipart/form-data">
+            <input class="custom_btn" type="file" accept=".wav" name="file" id="" style="padding: 5px;">
+            <input class="custom_btn" type="submit" value="Upload">
+        </form>
+    </div>
+    <div>
+        <h5 style="color: rgb(255, 255, 255)">Clean Speech</h5>
+        <audio controls src="static/upload_file/{{clean_speech}}" type="audio/wav">
+        </div>
+
+    <div>
+        <h4 style="color: rgb(255, 255, 255)">Step2. Select One Noise Type:</h4>
+        <button class="custom_btn" id="btn_addnoise" onclick="mixer('white_noise')">White Noise </button>
+        <button class="custom_btn" id="btn_addnoise" onclick="mixer('baby_crying')">Baby Crying</button>
+        <button class="custom_btn" id="btn_addnoise" onclick="mixer('dog_barking')">Dog Bark</button>
+        <button class="custom_btn" id="btn_addnoise" onclick="mixer('engine_sound')">Engine Sound</button>
+        <button class="custom_btn" id="btn_addnoise" onclick="mixer('traffic_sound')">Traffic Sound</button>
+        <button class="custom_btn" id="btn_addnoise" onclick="mixer('siren')">Siren</button>
+    </div>
+
+
+    <div>
+        <h5 style="color: rgb(255, 255, 255)">Noisy Speech</h5>
+        <audio controls src="static/temp/{{mixed_speech}}" type="audio/wav">
+    </div>
+
+    <h4 style="color: rgb(255, 255, 255)">Step3. Click Denoise Button and Listen to Enhanced Speech:</h4>
+
+    <button class="custom_btn" id="btn_addnoise" onclick="predict()">Denoise</button>
+    
+    <div>
+        <h5 style="color: rgb(255, 255, 255)">Enhanced Speech</h5>
+        <audio controls src="static/upload_file/{{enhanced_speech}}" type="audio/wav">
+    </div>
+
+    <div>
+        <br>
+        <button class="custom_btn" id="btn_addnoise" onclick="reset()">Reset</button>
+    </div>
+</body>
+</html>
